@@ -13,9 +13,9 @@ func Test(t *testing.T) {
 	logrus.SetLevel(logrus.DebugLevel)
 
 	pg := &Postgres{
-		Host: "10.0.9.212",
+		Host:     "10.0.9.212",
 		Password: "123456",
-		User: "postgres",
+		User:     "postgres",
 		Database: &sqlx.Database{
 			Name: "osm",
 		},
