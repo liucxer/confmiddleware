@@ -3,14 +3,16 @@ package confhttp
 import (
 	"bytes"
 	"fmt"
-	"go.opentelemetry.io/otel/propagation"
 	"net/http"
 	"net/url"
 	"strings"
 	"time"
 
+	"github.com/go-courier/httptransport/httpx"
+	"github.com/go-courier/metax"
 	"github.com/sirupsen/logrus"
 	"go.opentelemetry.io/contrib/propagators/b3"
+	"go.opentelemetry.io/otel/api/trace"
 )
 
 func NewLogRoundTripper(logger *logrus.Entry) func(roundTripper http.RoundTripper) http.RoundTripper {
@@ -33,7 +35,7 @@ func (rt *LogRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) 
 	ctx := req.Context()
 
 	// inject h3 form context
-	(&b3.B3{InjectEncoding: b3.B3SingleHeader}).Inject(ctx, propagation.HeaderCarrier(req.Header))
+	(&b3.B3{InjectEncoding: b3.B3SingleHeader}).Inject(ctx, req.Header)
 
 	resp, err := rt.nextRoundTripper.RoundTrip(req)
 
@@ -45,7 +47,7 @@ func (rt *LogRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) 
 	cost := time.Since(startedAt)
 	if err == nil {
 		// extract b3 to ctx
-		ctx = (&b3.B3{}).Extract(ctx, propagation.HeaderCarrier(req.Header))
+		ctx = (&b3.B3{}).Extract(ctx, resp.Header)
 	}
 
 	logger := rt.logger.WithContext(ctx).WithFields(logrus.Fields{
@@ -67,73 +69,73 @@ func (rt *LogRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) 
 	return resp, err
 }
 
-//func LogHandler(logger *logrus.Entry, tracer trace.Tracer) func(handler http.Handler) http.Handler {
-//	return func(nextHandler http.Handler) http.Handler {
-//		return http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
-//			ctx := req.Context()
-//
-//			ctx = (&b3.B3{}).Extract(ctx, req.Header)
-//			startAt := time.Now()
-//
-//			ctx, span := tracer.Start(ctx, "UnknownOperation", trace.WithTimestamp(startAt))
-//			defer func() {
-//				span.End(trace.WithTimestamp(time.Now()))
-//			}()
-//
-//			loggerRw := newLoggerResponseWriter(rw)
-//
-//			// for async pick
-//			(&b3.B3{InjectEncoding: b3.B3SingleHeader}).Inject(ctx, loggerRw.Header())
-//
-//			ctx = metax.ContextWithMeta(ctx, metax.ParseMeta(span.SpanContext().TraceID.String()))
-//
-//			nextHandler.ServeHTTP(loggerRw, req.WithContext(ctx))
-//
-//			operator := metax.ParseMeta(loggerRw.Header().Get("X-Meta")).Get("operator")
-//			if operator != "" {
-//				span.SetName(operator)
-//			}
-//
-//			level, _ := logrus.ParseLevel(strings.ToLower(req.Header.Get("x-log-level")))
-//			if level == logrus.PanicLevel {
-//				level = logger.Logger.Level
-//			}
-//
-//			duration := time.Since(startAt)
-//
-//			logger := logger.WithContext(metax.ContextWithMeta(ctx, metax.ParseMeta(loggerRw.Header().Get("X-Meta"))))
-//
-//			header := req.Header
-//
-//			fields := logrus.Fields{
-//				"tag":         "access",
-//				"remote_ip":   httpx.ClientIP(req),
-//				"cost":        fmt.Sprintf("%0.3fms", float64(duration/time.Millisecond)),
-//				"method":      req.Method,
-//				"request_uri": omitAuthorization(req.URL),
-//				"user_agent":  header.Get(httpx.HeaderUserAgent),
-//			}
-//
-//			fields["status"] = loggerRw.statusCode
-//
-//			if loggerRw.errMsg.Len() > 0 {
-//				if loggerRw.statusCode >= http.StatusInternalServerError {
-//					if level >= logrus.ErrorLevel {
-//						logger.WithFields(fields).Error(loggerRw.errMsg.String())
-//					}
-//				} else {
-//					if level >= logrus.WarnLevel {
-//						logger.WithFields(fields).Warn(loggerRw.errMsg.String())
-//					}
-//				}
-//			} else {
-//				if level >= logrus.InfoLevel {
-//					logger.WithFields(fields).Info()
-//				}
-//			}
-//		})
-//	}
-//}
+func LogHandler(logger *logrus.Entry, tracer trace.Tracer) func(handler http.Handler) http.Handler {
+	return func(nextHandler http.Handler) http.Handler {
+		return http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
+			ctx := req.Context()
+
+			ctx = (&b3.B3{}).Extract(ctx, req.Header)
+			startAt := time.Now()
+
+			ctx, span := tracer.Start(ctx, "UnknownOperation", trace.WithTimestamp(startAt))
+			defer func() {
+				span.End(trace.WithTimestamp(time.Now()))
+			}()
+
+			loggerRw := newLoggerResponseWriter(rw)
+
+			// for async pick
+			(&b3.B3{InjectEncoding: b3.B3SingleHeader}).Inject(ctx, loggerRw.Header())
+
+			ctx = metax.ContextWithMeta(ctx, metax.ParseMeta(span.SpanContext().TraceID.String()))
+
+			nextHandler.ServeHTTP(loggerRw, req.WithContext(ctx))
+
+			operator := metax.ParseMeta(loggerRw.Header().Get("X-Meta")).Get("operator")
+			if operator != "" {
+				span.SetName(operator)
+			}
+
+			level, _ := logrus.ParseLevel(strings.ToLower(req.Header.Get("x-log-level")))
+			if level == logrus.PanicLevel {
+				level = logger.Logger.Level
+			}
+
+			duration := time.Since(startAt)
+
+			logger := logger.WithContext(metax.ContextWithMeta(ctx, metax.ParseMeta(loggerRw.Header().Get("X-Meta"))))
+
+			header := req.Header
+
+			fields := logrus.Fields{
+				"tag":         "access",
+				"remote_ip":   httpx.ClientIP(req),
+				"cost":        fmt.Sprintf("%0.3fms", float64(duration/time.Millisecond)),
+				"method":      req.Method,
+				"request_uri": omitAuthorization(req.URL),
+				"user_agent":  header.Get(httpx.HeaderUserAgent),
+			}
+
+			fields["status"] = loggerRw.statusCode
+
+			if loggerRw.errMsg.Len() > 0 {
+				if loggerRw.statusCode >= http.StatusInternalServerError {
+					if level >= logrus.ErrorLevel {
+						logger.WithFields(fields).Error(loggerRw.errMsg.String())
+					}
+				} else {
+					if level >= logrus.WarnLevel {
+						logger.WithFields(fields).Warn(loggerRw.errMsg.String())
+					}
+				}
+			} else {
+				if level >= logrus.InfoLevel {
+					logger.WithFields(fields).Info()
+				}
+			}
+		})
+	}
+}
 
 func newLoggerResponseWriter(rw http.ResponseWriter) *loggerResponseWriter {
 	h, hok := rw.(http.Hijacker)

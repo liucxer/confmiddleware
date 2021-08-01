@@ -6,11 +6,13 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/liucxer/confhttp/middlewares"
 	"github.com/go-courier/courier"
 	"github.com/go-courier/httptransport"
 	"github.com/go-courier/ptr"
 	_ "github.com/go-courier/validator/strfmt"
-	"github.com/liucxer/confmiddleware/confhttp/middlewares"
+	"github.com/sirupsen/logrus"
+	"go.opentelemetry.io/otel/api/global"
 )
 
 type Server struct {
@@ -59,15 +61,18 @@ func (s *Server) Serve(router *courier.Router) error {
 	ht := httptransport.NewHttpTransport()
 
 	ht.Port = s.Port
-	//ht.Logger = logrus.WithContext(context.Background())
+	ht.Logger = logrus.WithContext(context.Background())
 
 	ht.SetDefaults()
+
+	tracer := global.Tracer("")
 
 	ht.Middlewares = []httptransport.HttpMiddleware{
 		defaultCompress,
 		middlewares.DefaultCORS(),
 		middlewares.HealthCheckHandler(),
 		middlewares.PProfHandler(*s.Debug),
+		LogHandler(ht.Logger, tracer),
 		NewContextInjectorMiddleware(s.contextInjector),
 	}
 
