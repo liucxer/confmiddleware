@@ -4,16 +4,16 @@ go 1.16
 
 require (
 	github.com/davecgh/go-spew v1.1.1
-	github.com/fatih/color v1.9.0
+	github.com/fatih/color v1.10.0
 	github.com/garyburd/redigo v1.6.2
 	github.com/go-courier/courier v1.4.1
 	github.com/go-courier/docker v1.0.2
 	github.com/go-courier/envconf v1.3.0
 	github.com/go-courier/geography v1.2.1
 	github.com/go-courier/helmx v1.10.1
-	github.com/go-courier/httptransport v1.17.14
+	github.com/go-courier/httptransport v1.20.5
 	github.com/go-courier/metax v1.2.1
-	github.com/go-courier/oas v1.2.0
+	github.com/go-courier/oas v1.2.1
 	github.com/go-courier/ptr v1.0.1
 	github.com/go-courier/reflectx v1.3.4
 	github.com/go-courier/snapshotmacther v0.0.0

@@ -61,18 +61,14 @@ func (s *Server) Serve(router *courier.Router) error {
 	ht := httptransport.NewHttpTransport()
 
 	ht.Port = s.Port
-	ht.Logger = logrus.WithContext(context.Background())
-
 	ht.SetDefaults()
-
-	tracer := global.Tracer("")
 
 	ht.Middlewares = []httptransport.HttpMiddleware{
 		defaultCompress,
 		middlewares.DefaultCORS(),
 		middlewares.HealthCheckHandler(),
 		middlewares.PProfHandler(*s.Debug),
-		LogHandler(ht.Logger, tracer),
+		LogHandler(logrus.WithContext(context.Background()), global.Tracer("")),
 		NewContextInjectorMiddleware(s.contextInjector),
 	}
 
