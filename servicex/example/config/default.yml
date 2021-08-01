@@ -1,0 +1,4 @@
+GOENV: DEV
+SRV_EXAMPLE__Client_Host: some-host
+SRV_EXAMPLE__Name: ""
+SRV_EXAMPLE__Server_Port: "80"

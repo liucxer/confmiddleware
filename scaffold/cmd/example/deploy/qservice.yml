@@ -1,0 +1,12 @@
+apiVersion: serving.octohelm.tech/v1alpha1
+kind: QService
+metadata:
+  annotations:
+    octohelm.tech/openAPISpecPath: /example
+spec:
+  envs:
+    EXAMPLE__CLIENT_Endpoint: ${{ EXAMPLE__CLIENT_Endpoint }}
+    EXAMPLE__SERVER_Port: ${{ EXAMPLE__SERVER_Port }}
+  image: ${{ PROJECT_IMAGE }}
+  ports:
+  - "80"

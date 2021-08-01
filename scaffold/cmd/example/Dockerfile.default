@@ -1,0 +1,36 @@
+# syntax = hub-dev.rockontrol.com/docker.io/docker/dockerfile:experimental
+
+ARG DOCKER_REGISTRY=hub-dev.rockontrol.com
+FROM ${DOCKER_REGISTRY}/docker.io/library/golang:1.15.3-buster AS build-env
+
+# setup private pkg 
+ARG GITLAB_CI_TOKEN
+ARG GITLAB_HOST=github.com/liucxer
+ARG GOPROXY=https://goproxy.cn,direct
+ENV GONOSUMDB=${GITLAB_HOST}/*
+RUN git config --global url.https://gitlab-ci-token:${GITLAB_CI_TOKEN}@${GITLAB_HOST}/.insteadOf https://${GITLAB_HOST}/
+
+FROM build-env AS builder
+
+WORKDIR /go/src
+COPY ./ ./
+
+# build
+ARG COMMIT_SHA
+RUN --mount=type=cache,sharing=locked,id=gomod,target=/go/pkg/mod \
+    make build
+
+# runtime
+FROM ${DOCKER_REGISTRY}/ghcr.io/querycap/distroless/static-debian10:latest
+
+COPY --from=builder /go/src/cmd/example/example /go/bin/example
+
+COPY --from=builder /go/src/cmd/example/openapi.json /go/bin/openapi.json
+EXPOSE 80
+
+ARG PROJECT_NAME
+ARG PROJECT_VERSION
+ENV GOENV=DEV PROJECT_NAME=${PROJECT_NAME} PROJECT_VERSION=${PROJECT_VERSION}
+
+WORKDIR /go/bin
+ENTRYPOINT ["/go/bin/example"]

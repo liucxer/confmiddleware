@@ -1,0 +1,3 @@
+EXAMPLE__CLIENT_Endpoint: http://localhost
+EXAMPLE__SERVER_Port: "80"
+GOENV: DEV

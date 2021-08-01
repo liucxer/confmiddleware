@@ -1,0 +1,6 @@
+job_test:
+  stage: test
+  image: ${RK_DOCKER_REGISTRY}/${BUILDER_GOLANG}
+  script:
+  - make cover
+  coverage: '/coverage: \d+\.\d+% of statements/'

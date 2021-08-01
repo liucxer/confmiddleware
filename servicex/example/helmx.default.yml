@@ -1,0 +1,5 @@
+service:
+  ports:
+  - "80"
+upstreams:
+- ${SRV_EXAMPLE__Client_Host}

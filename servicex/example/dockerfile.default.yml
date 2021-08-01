@@ -1,0 +1,13 @@
+from: env-golang
+image: ""
+workdir: /go/bin
+env:
+  GOENV: DEV
+add:
+  ./openapi.json: ./
+  ./srv-example: ./
+expose:
+- "80"
+cmd:
+- ./srv-example
+- -c=false

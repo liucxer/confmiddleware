@@ -1,0 +1,1315 @@
+{
+  "name": "intelliep_event",
+  "tables": {
+    "t_analyze": {
+      "name": "t_analyze",
+      "summary": "分析表",
+      "desc": "",
+      "cols": {
+        "f_analyze_id": {
+          "name": "f_analyze_id",
+          "dataType": "bigint unsigned NOT NULL",
+          "enum": null,
+          "summary": "分析ID",
+          "desc": "",
+          "rel": null
+        },
+        "f_analyze_type": {
+          "name": "f_analyze_type",
+          "dataType": "tinyint unsigned NOT NULL DEFAULT '1'",
+          "enum": {
+            "BARELAND": {
+              "value": 3,
+              "name": "BARELAND",
+              "label": "裸露土地"
+            },
+            "SLAG_CAR": {
+              "value": 2,
+              "name": "SLAG_CAR",
+              "label": "渣土车"
+            },
+            "SMOKE": {
+              "value": 1,
+              "name": "SMOKE",
+              "label": "烟雾"
+            },
+            "SPRAY": {
+              "value": 4,
+              "name": "SPRAY",
+              "label": "喷淋"
+            }
+          },
+          "summary": "分析类型",
+          "desc": "",
+          "rel": null
+        },
+        "f_created_at": {
+          "name": "f_created_at",
+          "dataType": "bigint NOT NULL",
+          "enum": null,
+          "summary": "创建时间",
+          "desc": "",
+          "rel": null
+        },
+        "f_deleted_at": {
+          "name": "f_deleted_at",
+          "dataType": "bigint NOT NULL DEFAULT 0",
+          "enum": null,
+          "summary": "软删除标记",
+          "desc": "",
+          "rel": null
+        },
+        "f_id": {
+          "name": "f_id",
+          "dataType": "bigint unsigned NOT NULL AUTO_INCREMENT",
+          "enum": null,
+          "summary": "自增ID",
+          "desc": "",
+          "rel": null
+        },
+        "f_project_id": {
+          "name": "f_project_id",
+          "dataType": "bigint unsigned NOT NULL",
+          "enum": null,
+          "summary": "项目ID",
+          "desc": "",
+          "rel": null
+        },
+        "f_state": {
+          "name": "f_state",
+          "dataType": "tinyint unsigned NOT NULL DEFAULT '1'",
+          "enum": {
+            "FAILURE": {
+              "value": 5,
+              "name": "FAILURE",
+              "label": "处理失败"
+            },
+            "PROCESSING": {
+              "value": 3,
+              "name": "PROCESSING",
+              "label": "处理中"
+            },
+            "SUCCESS": {
+              "value": 4,
+              "name": "SUCCESS",
+              "label": "处理成功"
+            },
+            "UNPROCESS": {
+              "value": 2,
+              "name": "UNPROCESS",
+              "label": "待处理"
+            },
+            "WAITING": {
+              "value": 1,
+              "name": "WAITING",
+              "label": "等待中"
+            }
+          },
+          "summary": "状态",
+          "desc": "",
+          "rel": null
+        },
+        "f_updated_at": {
+          "name": "f_updated_at",
+          "dataType": "bigint NOT NULL",
+          "enum": null,
+          "summary": "更新时间",
+          "desc": "",
+          "rel": null
+        },
+        "f_video_id": {
+          "name": "f_video_id",
+          "dataType": "bigint unsigned NOT NULL",
+          "enum": null,
+          "summary": "视频ID",
+          "desc": "",
+          "rel": [
+            "t_video",
+            "f_video_id"
+          ]
+        }
+      },
+      "keys": {
+        "i_analyze": {
+          "name": "i_analyze",
+          "method": "",
+          "isUnique": true,
+          "isPrimary": false,
+          "cols": [
+            "f_video_id",
+            "f_analyze_type",
+            "f_deleted_at"
+          ]
+        },
+        "i_id": {
+          "name": "i_id",
+          "method": "",
+          "isUnique": true,
+          "isPrimary": false,
+          "cols": [
+            "f_analyze_id",
+            "f_deleted_at"
+          ]
+        },
+        "primary": {
+          "name": "primary",
+          "method": "",
+          "isUnique": true,
+          "isPrimary": true,
+          "cols": [
+            "f_id"
+          ]
+        }
+      }
+    },
+    "t_entity": {
+      "name": "t_entity",
+      "summary": "实体表",
+      "desc": "",
+      "cols": {
+        "f_created_at": {
+          "name": "f_created_at",
+          "dataType": "bigint NOT NULL",
+          "enum": null,
+          "summary": "创建时间",
+          "desc": "",
+          "rel": null
+        },
+        "f_deleted_at": {
+          "name": "f_deleted_at",
+          "dataType": "bigint NOT NULL DEFAULT 0",
+          "enum": null,
+          "summary": "软删除标记",
+          "desc": "",
+          "rel": null
+        },
+        "f_entity_id": {
+          "name": "f_entity_id",
+          "dataType": "bigint unsigned NOT NULL",
+          "enum": null,
+          "summary": "实体ID",
+          "desc": "",
+          "rel": null
+        },
+        "f_id": {
+          "name": "f_id",
+          "dataType": "bigint unsigned NOT NULL AUTO_INCREMENT",
+          "enum": null,
+          "summary": "自增ID",
+          "desc": "",
+          "rel": null
+        },
+        "f_material_id": {
+          "name": "f_material_id",
+          "dataType": "bigint unsigned NOT NULL",
+          "enum": null,
+          "summary": "素材ID",
+          "desc": "",
+          "rel": [
+            "t_material",
+            "f_material_id"
+          ]
+        },
+        "f_type_name": {
+          "name": "f_type_name",
+          "dataType": "varchar(255) NOT NULL DEFAULT ''",
+          "enum": null,
+          "summary": "实体类型名称",
+          "desc": "",
+          "rel": null
+        },
+        "f_updated_at": {
+          "name": "f_updated_at",
+          "dataType": "bigint NOT NULL",
+          "enum": null,
+          "summary": "更新时间",
+          "desc": "",
+          "rel": null
+        }
+      },
+      "keys": {
+        "i_id": {
+          "name": "i_id",
+          "method": "",
+          "isUnique": true,
+          "isPrimary": false,
+          "cols": [
+            "f_entity_id",
+            "f_deleted_at"
+          ]
+        },
+        "i_material": {
+          "name": "i_material",
+          "method": "",
+          "isUnique": false,
+          "isPrimary": false,
+          "cols": [
+            "f_material_id"
+          ]
+        },
+        "primary": {
+          "name": "primary",
+          "method": "",
+          "isUnique": true,
+          "isPrimary": true,
+          "cols": [
+            "f_id"
+          ]
+        }
+      }
+    },
+    "t_entity_position": {
+      "name": "t_entity_position",
+      "summary": "实体位置",
+      "desc": "",
+      "cols": {
+        "f_created_at": {
+          "name": "f_created_at",
+          "dataType": "bigint NOT NULL",
+          "enum": null,
+          "summary": "创建时间",
+          "desc": "",
+          "rel": null
+        },
+        "f_deleted_at": {
+          "name": "f_deleted_at",
+          "dataType": "bigint NOT NULL DEFAULT 0",
+          "enum": null,
+          "summary": "软删除标记",
+          "desc": "",
+          "rel": null
+        },
+        "f_end_frame": {
+          "name": "f_end_frame",
+          "dataType": "bigint NOT NULL DEFAULT '1'",
+          "enum": null,
+          "summary": "终止帧",
+          "desc": "",
+          "rel": null
+        },
+        "f_entity_id": {
+          "name": "f_entity_id",
+          "dataType": "bigint unsigned NOT NULL",
+          "enum": null,
+          "summary": "实体ID",
+          "desc": "",
+          "rel": [
+            "t_entity",
+            "f_entity_id"
+          ]
+        },
+        "f_id": {
+          "name": "f_id",
+          "dataType": "bigint unsigned NOT NULL AUTO_INCREMENT",
+          "enum": null,
+          "summary": "自增ID",
+          "desc": "",
+          "rel": null
+        },
+        "f_material_id": {
+          "name": "f_material_id",
+          "dataType": "bigint unsigned NOT NULL",
+          "enum": null,
+          "summary": "结果ID",
+          "desc": "",
+          "rel": [
+            "t_material",
+            "f_material_id"
+          ]
+        },
+        "f_positions": {
+          "name": "f_positions",
+          "dataType": "varchar(255) NOT NULL",
+          "enum": null,
+          "summary": "位置信息",
+          "desc": "",
+          "rel": null
+        },
+        "f_start_frame": {
+          "name": "f_start_frame",
+          "dataType": "bigint NOT NULL DEFAULT '1'",
+          "enum": null,
+          "summary": "起始帧",
+          "desc": "",
+          "rel": null
+        },
+        "f_updated_at": {
+          "name": "f_updated_at",
+          "dataType": "bigint NOT NULL",
+          "enum": null,
+          "summary": "更新时间",
+          "desc": "",
+          "rel": null
+        }
+      },
+      "keys": {
+        "i_entity": {
+          "name": "i_entity",
+          "method": "",
+          "isUnique": false,
+          "isPrimary": false,
+          "cols": [
+            "f_entity_id"
+          ]
+        },
+        "i_material": {
+          "name": "i_material",
+          "method": "",
+          "isUnique": false,
+          "isPrimary": false,
+          "cols": [
+            "f_material_id"
+          ]
+        },
+        "primary": {
+          "name": "primary",
+          "method": "",
+          "isUnique": true,
+          "isPrimary": true,
+          "cols": [
+            "f_id"
+          ]
+        }
+      }
+    },
+    "t_entity_property": {
+      "name": "t_entity_property",
+      "summary": "实体属性",
+      "desc": "",
+      "cols": {
+        "f_created_at": {
+          "name": "f_created_at",
+          "dataType": "bigint NOT NULL",
+          "enum": null,
+          "summary": "创建时间",
+          "desc": "",
+          "rel": null
+        },
+        "f_deleted_at": {
+          "name": "f_deleted_at",
+          "dataType": "bigint NOT NULL DEFAULT 0",
+          "enum": null,
+          "summary": "软删除标记",
+          "desc": "",
+          "rel": null
+        },
+        "f_entity_id": {
+          "name": "f_entity_id",
+          "dataType": "bigint unsigned NOT NULL",
+          "enum": null,
+          "summary": "@ref Entity.EntityID",
+          "desc": "实体ID",
+          "rel": null
+        },
+        "f_id": {
+          "name": "f_id",
+          "dataType": "bigint unsigned NOT NULL AUTO_INCREMENT",
+          "enum": null,
+          "summary": "自增ID",
+          "desc": "",
+          "rel": null
+        },
+        "f_material_id": {
+          "name": "f_material_id",
+          "dataType": "bigint unsigned NOT NULL",
+          "enum": null,
+          "summary": "结果ID",
+          "desc": "",
+          "rel": [
+            "t_material",
+            "f_material_id"
+          ]
+        },
+        "f_property_name": {
+          "name": "f_property_name",
+          "dataType": "varchar(255) NOT NULL",
+          "enum": null,
+          "summary": "属性名称",
+          "desc": "",
+          "rel": null
+        },
+        "f_property_value": {
+          "name": "f_property_value",
+          "dataType": "varchar(255) NOT NULL",
+          "enum": null,
+          "summary": "属性值",
+          "desc": "",
+          "rel": null
+        },
+        "f_updated_at": {
+          "name": "f_updated_at",
+          "dataType": "bigint NOT NULL",
+          "enum": null,
+          "summary": "更新时间",
+          "desc": "",
+          "rel": null
+        }
+      },
+      "keys": {
+        "i_entity": {
+          "name": "i_entity",
+          "method": "",
+          "isUnique": false,
+          "isPrimary": false,
+          "cols": [
+            "f_entity_id"
+          ]
+        },
+        "i_material": {
+          "name": "i_material",
+          "method": "",
+          "isUnique": false,
+          "isPrimary": false,
+          "cols": [
+            "f_material_id"
+          ]
+        },
+        "i_property": {
+          "name": "i_property",
+          "method": "",
+          "isUnique": true,
+          "isPrimary": false,
+          "cols": [
+            "f_entity_id",
+            "f_property_name",
+            "f_deleted_at"
+          ]
+        },
+        "primary": {
+          "name": "primary",
+          "method": "",
+          "isUnique": true,
+          "isPrimary": true,
+          "cols": [
+            "f_id"
+          ]
+        }
+      }
+    },
+    "t_event_analyze": {
+      "name": "t_event_analyze",
+      "summary": "事件分析表",
+      "desc": "",
+      "cols": {
+        "f_alarm_id": {
+          "name": "f_alarm_id",
+          "dataType": "bigint unsigned NOT NULL DEFAULT '0'",
+          "enum": null,
+          "summary": "",
+          "desc": "",
+          "rel": null
+        },
+        "f_analyze_id": {
+          "name": "f_analyze_id",
+          "dataType": "bigint unsigned NOT NULL",
+          "enum": null,
+          "summary": "分析ID",
+          "desc": "",
+          "rel": [
+            "t_analyze",
+            "f_analyze_id"
+          ]
+        },
+        "f_analyze_type": {
+          "name": "f_analyze_type",
+          "dataType": "tinyint unsigned NOT NULL DEFAULT '1'",
+          "enum": {
+            "BARELAND": {
+              "value": 3,
+              "name": "BARELAND",
+              "label": "裸露土地"
+            },
+            "SLAG_CAR": {
+              "value": 2,
+              "name": "SLAG_CAR",
+              "label": "渣土车"
+            },
+            "SMOKE": {
+              "value": 1,
+              "name": "SMOKE",
+              "label": "烟雾"
+            },
+            "SPRAY": {
+              "value": 4,
+              "name": "SPRAY",
+              "label": "喷淋"
+            }
+          },
+          "summary": "分析类型",
+          "desc": "",
+          "rel": null
+        },
+        "f_created_at": {
+          "name": "f_created_at",
+          "dataType": "bigint NOT NULL",
+          "enum": null,
+          "summary": "创建时间",
+          "desc": "",
+          "rel": null
+        },
+        "f_deleted_at": {
+          "name": "f_deleted_at",
+          "dataType": "bigint NOT NULL DEFAULT 0",
+          "enum": null,
+          "summary": "软删除标记",
+          "desc": "",
+          "rel": null
+        },
+        "f_distance": {
+          "name": "f_distance",
+          "dataType": "double NOT NULL DEFAULT '0'",
+          "enum": null,
+          "summary": "距离",
+          "desc": "",
+          "rel": null
+        },
+        "f_event_id": {
+          "name": "f_event_id",
+          "dataType": "bigint unsigned NOT NULL",
+          "enum": null,
+          "summary": "事件ID",
+          "desc": "",
+          "rel": null
+        },
+        "f_id": {
+          "name": "f_id",
+          "dataType": "bigint unsigned NOT NULL AUTO_INCREMENT",
+          "enum": null,
+          "summary": "自增ID",
+          "desc": "",
+          "rel": null
+        },
+        "f_project_id": {
+          "name": "f_project_id",
+          "dataType": "bigint unsigned NOT NULL DEFAULT '0'",
+          "enum": null,
+          "summary": "",
+          "desc": "",
+          "rel": null
+        },
+        "f_updated_at": {
+          "name": "f_updated_at",
+          "dataType": "bigint NOT NULL",
+          "enum": null,
+          "summary": "更新时间",
+          "desc": "",
+          "rel": null
+        },
+        "f_video_id": {
+          "name": "f_video_id",
+          "dataType": "bigint unsigned NOT NULL",
+          "enum": null,
+          "summary": "视频ID",
+          "desc": "",
+          "rel": [
+            "t_video",
+            "f_video_id"
+          ]
+        }
+      },
+      "keys": {
+        "i_event_analyze": {
+          "name": "i_event_analyze",
+          "method": "",
+          "isUnique": true,
+          "isPrimary": false,
+          "cols": [
+            "f_event_id",
+            "f_analyze_id",
+            "f_deleted_at"
+          ]
+        },
+        "i_event_video_type": {
+          "name": "i_event_video_type",
+          "method": "",
+          "isUnique": true,
+          "isPrimary": false,
+          "cols": [
+            "f_event_id",
+            "f_video_id",
+            "f_analyze_type",
+            "f_deleted_at"
+          ]
+        },
+        "primary": {
+          "name": "primary",
+          "method": "",
+          "isUnique": true,
+          "isPrimary": true,
+          "cols": [
+            "f_id"
+          ]
+        }
+      }
+    },
+    "t_event_material": {
+      "name": "t_event_material",
+      "summary": "事件素材表",
+      "desc": "",
+      "cols": {
+        "f_alarm_id": {
+          "name": "f_alarm_id",
+          "dataType": "bigint unsigned NOT NULL DEFAULT '0'",
+          "enum": null,
+          "summary": "告警ID",
+          "desc": "",
+          "rel": null
+        },
+        "f_created_at": {
+          "name": "f_created_at",
+          "dataType": "bigint NOT NULL",
+          "enum": null,
+          "summary": "创建时间",
+          "desc": "",
+          "rel": null
+        },
+        "f_deleted_at": {
+          "name": "f_deleted_at",
+          "dataType": "bigint NOT NULL DEFAULT 0",
+          "enum": null,
+          "summary": "软删除标记",
+          "desc": "",
+          "rel": null
+        },
+        "f_distance": {
+          "name": "f_distance",
+          "dataType": "double NOT NULL DEFAULT '0'",
+          "enum": null,
+          "summary": "距离",
+          "desc": "",
+          "rel": null
+        },
+        "f_event_id": {
+          "name": "f_event_id",
+          "dataType": "bigint unsigned NOT NULL DEFAULT '0'",
+          "enum": null,
+          "summary": "事件ID",
+          "desc": "",
+          "rel": null
+        },
+        "f_id": {
+          "name": "f_id",
+          "dataType": "bigint unsigned NOT NULL AUTO_INCREMENT",
+          "enum": null,
+          "summary": "自增ID",
+          "desc": "",
+          "rel": null
+        },
+        "f_material_id": {
+          "name": "f_material_id",
+          "dataType": "bigint unsigned NOT NULL",
+          "enum": null,
+          "summary": "素材ID",
+          "desc": "",
+          "rel": [
+            "t_material",
+            "f_material_id"
+          ]
+        },
+        "f_project_id": {
+          "name": "f_project_id",
+          "dataType": "bigint unsigned NOT NULL",
+          "enum": null,
+          "summary": "项目ID",
+          "desc": "",
+          "rel": null
+        },
+        "f_updated_at": {
+          "name": "f_updated_at",
+          "dataType": "bigint NOT NULL",
+          "enum": null,
+          "summary": "更新时间",
+          "desc": "",
+          "rel": null
+        }
+      },
+      "keys": {
+        "i_event_material": {
+          "name": "i_event_material",
+          "method": "",
+          "isUnique": true,
+          "isPrimary": false,
+          "cols": [
+            "f_event_id",
+            "f_material_id",
+            "f_deleted_at"
+          ]
+        },
+        "i_project_id": {
+          "name": "i_project_id",
+          "method": "",
+          "isUnique": false,
+          "isPrimary": false,
+          "cols": [
+            "f_project_id"
+          ]
+        },
+        "primary": {
+          "name": "primary",
+          "method": "",
+          "isUnique": true,
+          "isPrimary": true,
+          "cols": [
+            "f_id"
+          ]
+        }
+      }
+    },
+    "t_external_material": {
+      "name": "t_external_material",
+      "summary": "外部视频素材",
+      "desc": "",
+      "cols": {
+        "f_created_at": {
+          "name": "f_created_at",
+          "dataType": "bigint NOT NULL",
+          "enum": null,
+          "summary": "创建时间",
+          "desc": "",
+          "rel": null
+        },
+        "f_deleted_at": {
+          "name": "f_deleted_at",
+          "dataType": "bigint NOT NULL DEFAULT 0",
+          "enum": null,
+          "summary": "软删除标记",
+          "desc": "",
+          "rel": null
+        },
+        "f_id": {
+          "name": "f_id",
+          "dataType": "bigint unsigned NOT NULL AUTO_INCREMENT",
+          "enum": null,
+          "summary": "自增ID",
+          "desc": "",
+          "rel": null
+        },
+        "f_material_id": {
+          "name": "f_material_id",
+          "dataType": "bigint unsigned NOT NULL",
+          "enum": null,
+          "summary": "素材ID",
+          "desc": "",
+          "rel": [
+            "t_material",
+            "f_material_id"
+          ]
+        },
+        "f_project_id": {
+          "name": "f_project_id",
+          "dataType": "bigint unsigned NOT NULL",
+          "enum": null,
+          "summary": "项目ID",
+          "desc": "",
+          "rel": null
+        },
+        "f_updated_at": {
+          "name": "f_updated_at",
+          "dataType": "bigint NOT NULL",
+          "enum": null,
+          "summary": "更新时间",
+          "desc": "",
+          "rel": null
+        }
+      },
+      "keys": {
+        "i_external_material": {
+          "name": "i_external_material",
+          "method": "",
+          "isUnique": true,
+          "isPrimary": false,
+          "cols": [
+            "f_project_id",
+            "f_material_id",
+            "f_deleted_at"
+          ]
+        },
+        "primary": {
+          "name": "primary",
+          "method": "",
+          "isUnique": true,
+          "isPrimary": true,
+          "cols": [
+            "f_id"
+          ]
+        }
+      }
+    },
+    "t_material": {
+      "name": "t_material",
+      "summary": "视频表",
+      "desc": "",
+      "cols": {
+        "f_analyze_id": {
+          "name": "f_analyze_id",
+          "dataType": "bigint unsigned NOT NULL DEFAULT '0'",
+          "enum": null,
+          "summary": "分析ID",
+          "desc": "",
+          "rel": [
+            "t_analyze",
+            "f_analyze_id"
+          ]
+        },
+        "f_camera_address": {
+          "name": "f_camera_address",
+          "dataType": "varchar(255) NOT NULL DEFAULT ''",
+          "enum": null,
+          "summary": "",
+          "desc": "",
+          "rel": null
+        },
+        "f_camera_id": {
+          "name": "f_camera_id",
+          "dataType": "bigint unsigned NOT NULL DEFAULT '0'",
+          "enum": null,
+          "summary": "",
+          "desc": "",
+          "rel": null
+        },
+        "f_camera_location": {
+          "name": "f_camera_location",
+          "dataType": "POINT NOT NULL",
+          "enum": null,
+          "summary": "",
+          "desc": "",
+          "rel": null
+        },
+        "f_cover_obj_id": {
+          "name": "f_cover_obj_id",
+          "dataType": "bigint unsigned NOT NULL DEFAULT '0'",
+          "enum": null,
+          "summary": "预览图ID",
+          "desc": "",
+          "rel": null
+        },
+        "f_created_at": {
+          "name": "f_created_at",
+          "dataType": "bigint NOT NULL",
+          "enum": null,
+          "summary": "创建时间",
+          "desc": "",
+          "rel": null
+        },
+        "f_deleted_at": {
+          "name": "f_deleted_at",
+          "dataType": "bigint NOT NULL DEFAULT 0",
+          "enum": null,
+          "summary": "软删除标记",
+          "desc": "",
+          "rel": null
+        },
+        "f_end_time": {
+          "name": "f_end_time",
+          "dataType": "bigint NOT NULL DEFAULT '0'",
+          "enum": null,
+          "summary": "结束时间",
+          "desc": "",
+          "rel": null
+        },
+        "f_fps": {
+          "name": "f_fps",
+          "dataType": "bigint NOT NULL DEFAULT '0'",
+          "enum": null,
+          "summary": "帧频",
+          "desc": "",
+          "rel": null
+        },
+        "f_height": {
+          "name": "f_height",
+          "dataType": "bigint NOT NULL DEFAULT '0'",
+          "enum": null,
+          "summary": "素材高",
+          "desc": "",
+          "rel": null
+        },
+        "f_id": {
+          "name": "f_id",
+          "dataType": "bigint unsigned NOT NULL AUTO_INCREMENT",
+          "enum": null,
+          "summary": "自增ID",
+          "desc": "",
+          "rel": null
+        },
+        "f_material_id": {
+          "name": "f_material_id",
+          "dataType": "bigint unsigned NOT NULL",
+          "enum": null,
+          "summary": "素材ID",
+          "desc": "",
+          "rel": null
+        },
+        "f_material_type": {
+          "name": "f_material_type",
+          "dataType": "tinyint unsigned NOT NULL",
+          "enum": {
+            "IMAGE": {
+              "value": 2,
+              "name": "IMAGE",
+              "label": "图片"
+            },
+            "VIDEO": {
+              "value": 1,
+              "name": "VIDEO",
+              "label": "视频"
+            }
+          },
+          "summary": "素材类型",
+          "desc": "",
+          "rel": null
+        },
+        "f_obj_id": {
+          "name": "f_obj_id",
+          "dataType": "bigint unsigned NOT NULL DEFAULT '0'",
+          "enum": null,
+          "summary": "对象ID",
+          "desc": "",
+          "rel": null
+        },
+        "f_project_id": {
+          "name": "f_project_id",
+          "dataType": "bigint unsigned NOT NULL",
+          "enum": null,
+          "summary": "项目ID",
+          "desc": "",
+          "rel": null
+        },
+        "f_remark": {
+          "name": "f_remark",
+          "dataType": "varchar(255) NOT NULL DEFAULT ''",
+          "enum": null,
+          "summary": "备注信息",
+          "desc": "",
+          "rel": null
+        },
+        "f_start_time": {
+          "name": "f_start_time",
+          "dataType": "bigint NOT NULL DEFAULT '0'",
+          "enum": null,
+          "summary": "开始时间",
+          "desc": "",
+          "rel": null
+        },
+        "f_state": {
+          "name": "f_state",
+          "dataType": "tinyint unsigned NOT NULL DEFAULT '1'",
+          "enum": {
+            "FAILURE": {
+              "value": 4,
+              "name": "FAILURE",
+              "label": "处理失败"
+            },
+            "PROCESSING": {
+              "value": 2,
+              "name": "PROCESSING",
+              "label": "处理中"
+            },
+            "SUCCESS": {
+              "value": 3,
+              "name": "SUCCESS",
+              "label": "处理成功"
+            },
+            "UNPROCESS": {
+              "value": 1,
+              "name": "UNPROCESS",
+              "label": "待处理"
+            }
+          },
+          "summary": "状态",
+          "desc": "",
+          "rel": null
+        },
+        "f_updated_at": {
+          "name": "f_updated_at",
+          "dataType": "bigint NOT NULL",
+          "enum": null,
+          "summary": "更新时间",
+          "desc": "",
+          "rel": null
+        },
+        "f_video_id": {
+          "name": "f_video_id",
+          "dataType": "bigint unsigned NOT NULL DEFAULT '0'",
+          "enum": null,
+          "summary": "视频ID",
+          "desc": "",
+          "rel": [
+            "t_video",
+            "f_video_id"
+          ]
+        },
+        "f_width": {
+          "name": "f_width",
+          "dataType": "bigint NOT NULL DEFAULT '0'",
+          "enum": null,
+          "summary": "素材宽",
+          "desc": "",
+          "rel": null
+        }
+      },
+      "keys": {
+        "i_analyze": {
+          "name": "i_analyze",
+          "method": "",
+          "isUnique": false,
+          "isPrimary": false,
+          "cols": [
+            "f_analyze_id"
+          ]
+        },
+        "i_id": {
+          "name": "i_id",
+          "method": "",
+          "isUnique": true,
+          "isPrimary": false,
+          "cols": [
+            "f_material_id",
+            "f_deleted_at"
+          ]
+        },
+        "primary": {
+          "name": "primary",
+          "method": "",
+          "isUnique": true,
+          "isPrimary": true,
+          "cols": [
+            "f_id"
+          ]
+        }
+      }
+    },
+    "t_project_analyze_type": {
+      "name": "t_project_analyze_type",
+      "summary": "分析表",
+      "desc": "",
+      "cols": {
+        "f_analyze_type_list": {
+          "name": "f_analyze_type_list",
+          "dataType": "bytea NOT NULL",
+          "enum": null,
+          "summary": "分析类型列表",
+          "desc": "",
+          "rel": null
+        },
+        "f_created_at": {
+          "name": "f_created_at",
+          "dataType": "bigint NOT NULL",
+          "enum": null,
+          "summary": "创建时间",
+          "desc": "",
+          "rel": null
+        },
+        "f_deleted_at": {
+          "name": "f_deleted_at",
+          "dataType": "bigint NOT NULL DEFAULT 0",
+          "enum": null,
+          "summary": "软删除标记",
+          "desc": "",
+          "rel": null
+        },
+        "f_id": {
+          "name": "f_id",
+          "dataType": "bigint unsigned NOT NULL AUTO_INCREMENT",
+          "enum": null,
+          "summary": "自增ID",
+          "desc": "",
+          "rel": null
+        },
+        "f_project_id": {
+          "name": "f_project_id",
+          "dataType": "bigint unsigned NOT NULL",
+          "enum": null,
+          "summary": "项目ID",
+          "desc": "",
+          "rel": null
+        },
+        "f_updated_at": {
+          "name": "f_updated_at",
+          "dataType": "bigint NOT NULL",
+          "enum": null,
+          "summary": "更新时间",
+          "desc": "",
+          "rel": null
+        }
+      },
+      "keys": {
+        "primary": {
+          "name": "primary",
+          "method": "",
+          "isUnique": true,
+          "isPrimary": true,
+          "cols": [
+            "f_id"
+          ]
+        },
+        "uk_project_id": {
+          "name": "uk_project_id",
+          "method": "",
+          "isUnique": true,
+          "isPrimary": false,
+          "cols": [
+            "f_project_id",
+            "f_deleted_at"
+          ]
+        }
+      }
+    },
+    "t_video": {
+      "name": "t_video",
+      "summary": "视频表",
+      "desc": "",
+      "cols": {
+        "f_camera_address": {
+          "name": "f_camera_address",
+          "dataType": "varchar(255) NOT NULL DEFAULT ''",
+          "enum": null,
+          "summary": "摄像头位置",
+          "desc": "",
+          "rel": null
+        },
+        "f_camera_id": {
+          "name": "f_camera_id",
+          "dataType": "bigint unsigned NOT NULL",
+          "enum": null,
+          "summary": "摄像头ID",
+          "desc": "",
+          "rel": null
+        },
+        "f_camera_location": {
+          "name": "f_camera_location",
+          "dataType": "POINT NOT NULL",
+          "enum": null,
+          "summary": "位置",
+          "desc": "",
+          "rel": null
+        },
+        "f_created_at": {
+          "name": "f_created_at",
+          "dataType": "bigint NOT NULL",
+          "enum": null,
+          "summary": "创建时间",
+          "desc": "",
+          "rel": null
+        },
+        "f_deleted_at": {
+          "name": "f_deleted_at",
+          "dataType": "bigint NOT NULL DEFAULT 0",
+          "enum": null,
+          "summary": "软删除标记",
+          "desc": "",
+          "rel": null
+        },
+        "f_end_time": {
+          "name": "f_end_time",
+          "dataType": "bigint NOT NULL",
+          "enum": null,
+          "summary": "结束时间",
+          "desc": "",
+          "rel": null
+        },
+        "f_id": {
+          "name": "f_id",
+          "dataType": "bigint unsigned NOT NULL AUTO_INCREMENT",
+          "enum": null,
+          "summary": "自增ID",
+          "desc": "",
+          "rel": null
+        },
+        "f_obj_id": {
+          "name": "f_obj_id",
+          "dataType": "bigint unsigned NOT NULL DEFAULT '0'",
+          "enum": null,
+          "summary": "对象ID",
+          "desc": "",
+          "rel": null
+        },
+        "f_start_time": {
+          "name": "f_start_time",
+          "dataType": "bigint NOT NULL",
+          "enum": null,
+          "summary": "开始时间",
+          "desc": "",
+          "rel": null
+        },
+        "f_state": {
+          "name": "f_state",
+          "dataType": "tinyint unsigned NOT NULL DEFAULT '1'",
+          "enum": {
+            "FAILURE": {
+              "value": 4,
+              "name": "FAILURE",
+              "label": "处理失败"
+            },
+            "PROCESSING": {
+              "value": 2,
+              "name": "PROCESSING",
+              "label": "处理中"
+            },
+            "SUCCESS": {
+              "value": 3,
+              "name": "SUCCESS",
+              "label": "处理成功"
+            },
+            "UNPROCESS": {
+              "value": 1,
+              "name": "UNPROCESS",
+              "label": "待处理"
+            }
+          },
+          "summary": "状态",
+          "desc": "",
+          "rel": null
+        },
+        "f_updated_at": {
+          "name": "f_updated_at",
+          "dataType": "bigint NOT NULL",
+          "enum": null,
+          "summary": "更新时间",
+          "desc": "",
+          "rel": null
+        },
+        "f_video_id": {
+          "name": "f_video_id",
+          "dataType": "bigint unsigned NOT NULL",
+          "enum": null,
+          "summary": "素材ID",
+          "desc": "",
+          "rel": null
+        }
+      },
+      "keys": {
+        "i_id": {
+          "name": "i_id",
+          "method": "",
+          "isUnique": true,
+          "isPrimary": false,
+          "cols": [
+            "f_video_id",
+            "f_deleted_at"
+          ]
+        },
+        "i_video": {
+          "name": "i_video",
+          "method": "",
+          "isUnique": true,
+          "isPrimary": false,
+          "cols": [
+            "f_camera_id",
+            "f_start_time",
+            "f_end_time",
+            "f_deleted_at"
+          ]
+        },
+        "primary": {
+          "name": "primary",
+          "method": "",
+          "isUnique": true,
+          "isPrimary": true,
+          "cols": [
+            "f_id"
+          ]
+        }
+      }
+    }
+  }
+}
