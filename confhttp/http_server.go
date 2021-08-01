@@ -6,11 +6,11 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/liucxer/confhttp/middlewares"
 	"github.com/go-courier/courier"
 	"github.com/go-courier/httptransport"
 	"github.com/go-courier/ptr"
 	_ "github.com/go-courier/validator/strfmt"
+	"github.com/liucxer/confmiddleware/confhttp/middlewares"
 	"github.com/sirupsen/logrus"
 	"go.opentelemetry.io/otel/api/global"
 )
