@@ -5,9 +5,9 @@ import (
 	"errors"
 	"reflect"
 
-	"github.com/go-courier/courier"
-	"github.com/go-courier/httptransport/httpx"
-	"github.com/go-courier/reflectx"
+	"github.com/liucxer/courier/courier"
+	"github.com/liucxer/courier/httptransport/httpx"
+	"github.com/liucxer/courier/reflectx"
 )
 
 type LivenessChecker interface {

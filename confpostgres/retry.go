@@ -3,7 +3,7 @@ package confpostgres
 import (
 	"time"
 
-	"github.com/go-courier/envconf"
+	"github.com/liucxer/courier/envconf"
 	"github.com/sirupsen/logrus"
 )
 

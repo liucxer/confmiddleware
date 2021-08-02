@@ -6,9 +6,9 @@ import (
 	"path/filepath"
 	"sort"
 
-	"github.com/go-courier/docker"
-	"github.com/go-courier/helmx/kubetypes"
-	"github.com/go-courier/helmx/spec"
+	"github.com/liucxer/courier/docker"
+	"github.com/liucxer/courier/helmx/kubetypes"
+	"github.com/liucxer/courier/helmx/spec"
 	"gopkg.in/yaml.v2"
 )
 

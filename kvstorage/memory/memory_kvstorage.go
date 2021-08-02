@@ -5,7 +5,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/go-courier/reflectx"
+	"github.com/liucxer/courier/reflectx"
 
 	"github.com/liucxer/confmiddleware/kvstorage"
 )

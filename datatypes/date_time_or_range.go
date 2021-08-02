@@ -5,8 +5,8 @@ import (
 	"time"
 	_ "time/tzdata"
 
-	"github.com/go-courier/sqlx/v2/builder"
-	sqlxDatatypes "github.com/go-courier/sqlx/v2/datatypes"
+	"github.com/liucxer/courier/sqlx/builder"
+	sqlxDatatypes "github.com/liucxer/courier/sqlx/datatypes"
 )
 
 // openapi:strfmt date-time-or-range

@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/go-courier/metax"
+	"github.com/liucxer/courier/metax"
 	"github.com/sirupsen/logrus"
 )
 

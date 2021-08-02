@@ -8,8 +8,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/go-courier/httptransport/httpx"
-	"github.com/go-courier/metax"
+	"github.com/liucxer/courier/httptransport/httpx"
+	"github.com/liucxer/courier/metax"
 	"github.com/sirupsen/logrus"
 	"go.opentelemetry.io/contrib/propagators/b3"
 	"go.opentelemetry.io/otel/api/trace"

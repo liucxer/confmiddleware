@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	fatihcolor "github.com/fatih/color"
-	"github.com/go-courier/oas"
+	"github.com/liucxer/courier/oas"
 	"github.com/unidoc/unioffice/document"
 	"io/ioutil"
 	"log"

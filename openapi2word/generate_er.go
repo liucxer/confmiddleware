@@ -2,7 +2,7 @@ package openapi2word
 
 import (
 	"encoding/json"
-	"github.com/go-courier/sqlx/v2/er"
+	"github.com/liucxer/courier/sqlx/er"
 	"github.com/unidoc/unioffice/color"
 	"github.com/unidoc/unioffice/document"
 	"github.com/unidoc/unioffice/measurement"

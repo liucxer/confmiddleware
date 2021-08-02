@@ -4,7 +4,7 @@ import (
 	"go/ast"
 	"reflect"
 
-	"github.com/go-courier/reflectx"
+	"github.com/liucxer/courier/reflectx"
 )
 
 func DecodeEnvVars(envVars *EnvVars, v interface{}) error {

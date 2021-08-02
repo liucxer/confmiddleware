@@ -1,7 +1,7 @@
 package coordinate
 
 import (
-	"github.com/go-courier/geography"
+	"github.com/liucxer/courier/geography"
 	"math"
 )
 

@@ -5,10 +5,10 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/go-courier/courier"
-	"github.com/go-courier/envconf"
-	"github.com/go-courier/httptransport/client"
-	"github.com/go-courier/statuserror"
+	"github.com/liucxer/courier/courier"
+	"github.com/liucxer/courier/envconf"
+	"github.com/liucxer/courier/httptransport/client"
+	"github.com/liucxer/courier/statuserror"
 	"github.com/sirupsen/logrus"
 )
 

@@ -8,8 +8,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/go-courier/ptr"
-	"github.com/go-courier/snapshotmacther"
+	"github.com/liucxer/courier/ptr"
+	"github.com/liucxer/courier/snapshotmacther"
 	. "github.com/onsi/gomega"
 )
 

@@ -2,7 +2,7 @@ package oauth
 
 import (
 	"errors"
-	"github.com/go-courier/reflectx"
+	"github.com/liucxer/courier/reflectx"
 	"go/ast"
 	"net/url"
 	"reflect"

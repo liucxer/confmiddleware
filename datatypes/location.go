@@ -2,7 +2,7 @@ package datatypes
 
 import (
 	"errors"
-	"github.com/go-courier/geography"
+	"github.com/liucxer/courier/geography"
 	"strconv"
 	"strings"
 )

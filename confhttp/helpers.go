@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http/httputil"
 
-	"github.com/go-courier/httptransport"
+	"github.com/liucxer/courier/httptransport"
 )
 
 type HTTPRequestLogger struct {

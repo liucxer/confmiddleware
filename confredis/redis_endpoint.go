@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/go-courier/envconf"
+	"github.com/liucxer/courier/envconf"
 	"github.com/gomodule/redigo/redis"
 )
 

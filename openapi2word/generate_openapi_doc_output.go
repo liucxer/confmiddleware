@@ -2,7 +2,7 @@ package openapi2word
 
 import (
 	"fmt"
-	"github.com/go-courier/oas"
+	"github.com/liucxer/courier/oas"
 	"github.com/unidoc/unioffice/document"
 )
 

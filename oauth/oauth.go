@@ -2,9 +2,9 @@ package oauth
 
 import (
 	"context"
-	"github.com/go-courier/envconf"
-	"github.com/go-courier/httptransport/client"
-	"github.com/go-courier/httptransport/client/roundtrippers"
+	"github.com/liucxer/courier/envconf"
+	"github.com/liucxer/courier/httptransport/client"
+	"github.com/liucxer/courier/httptransport/client/roundtrippers"
 	"github.com/sirupsen/logrus"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/clientcredentials"

@@ -3,7 +3,7 @@ package openapi_generate_doc
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/go-courier/oas"
+	"github.com/liucxer/courier/oas"
 	"github.com/unidoc/unioffice/color"
 	"github.com/unidoc/unioffice/document"
 	"github.com/unidoc/unioffice/measurement"

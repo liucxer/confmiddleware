@@ -2,7 +2,7 @@ package oauth
 
 import (
 	"encoding/json"
-	"github.com/go-courier/statuserror"
+	"github.com/liucxer/courier/statuserror"
 	"golang.org/x/oauth2"
 )
 

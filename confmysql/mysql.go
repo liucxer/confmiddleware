@@ -5,9 +5,9 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/go-courier/envconf"
-	"github.com/go-courier/sqlx/v2"
-	"github.com/go-courier/sqlx/v2/mysqlconnector"
+	"github.com/liucxer/courier/envconf"
+	"github.com/liucxer/courier/sqlx"
+	"github.com/liucxer/courier/sqlx/mysqlconnector"
 )
 
 type MySQL struct {

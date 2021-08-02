@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding"
 
-	"github.com/go-courier/sqlx/v2/builder"
+	"github.com/liucxer/courier/sqlx/builder"
 )
 
 type Textable interface {

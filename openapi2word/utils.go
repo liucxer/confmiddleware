@@ -1,6 +1,6 @@
 package openapi2word
 
-import "github.com/go-courier/oas"
+import "github.com/liucxer/courier/oas"
 
 func CheckMethod(method oas.HttpMethod) string {
 	switch method {

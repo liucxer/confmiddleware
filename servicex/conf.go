@@ -9,8 +9,8 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/go-courier/envconf"
-	"github.com/go-courier/reflectx"
+	"github.com/liucxer/courier/envconf"
+	"github.com/liucxer/courier/reflectx"
 	"github.com/spf13/cobra"
 	"gopkg.in/yaml.v2"
 )
