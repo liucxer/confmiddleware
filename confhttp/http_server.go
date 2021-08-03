@@ -3,6 +3,7 @@ package confhttp
 import (
 	"compress/gzip"
 	"context"
+	"github.com/liucxer/courier/httptransport/handlers"
 	"net/http"
 	"strconv"
 
@@ -66,7 +67,7 @@ func (s *Server) Serve(router *courier.Router) error {
 		middlewares.DefaultCORS(),
 		middlewares.HealthCheckHandler(),
 		middlewares.PProfHandler(*s.Debug),
-		//LogHandler(logrus.WithContext(context.Background()), global.Tracer("")),
+		handlers.LogHandler(),
 		NewContextInjectorMiddleware(s.contextInjector),
 	}
 
