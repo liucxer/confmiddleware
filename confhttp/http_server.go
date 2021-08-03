@@ -3,7 +3,8 @@ package confhttp
 import (
 	"compress/gzip"
 	"context"
-	"github.com/liucxer/courier/httptransport/handlers"
+	"github.com/sirupsen/logrus"
+	"go.opentelemetry.io/otel/api/global"
 	"net/http"
 	"strconv"
 
@@ -67,7 +68,7 @@ func (s *Server) Serve(router *courier.Router) error {
 		middlewares.DefaultCORS(),
 		middlewares.HealthCheckHandler(),
 		middlewares.PProfHandler(*s.Debug),
-		handlers.LogHandler(),
+		LogHandler(logrus.WithContext(context.Background()), global.Tracer("")),
 		NewContextInjectorMiddleware(s.contextInjector),
 	}
 
