@@ -8,7 +8,7 @@ require (
 	github.com/garyburd/redigo v1.6.2
 	github.com/go-ini/ini v1.62.0 // indirect
 	github.com/gomodule/redigo v1.8.5
-	github.com/liucxer/courier v1.0.1
+	github.com/liucxer/courier v1.6.1
 	github.com/minio/minio-go v6.0.14+incompatible
 	github.com/onsi/gomega v1.14.0
 	github.com/sirupsen/logrus v1.8.1

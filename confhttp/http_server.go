@@ -11,8 +11,6 @@ import (
 	"github.com/liucxer/courier/httptransport"
 	"github.com/liucxer/courier/ptr"
 	_ "github.com/liucxer/courier/validator/strfmt"
-	"github.com/sirupsen/logrus"
-	"go.opentelemetry.io/otel/api/global"
 )
 
 type Server struct {
@@ -68,7 +66,7 @@ func (s *Server) Serve(router *courier.Router) error {
 		middlewares.DefaultCORS(),
 		middlewares.HealthCheckHandler(),
 		middlewares.PProfHandler(*s.Debug),
-		LogHandler(logrus.WithContext(context.Background()), global.Tracer("")),
+		//LogHandler(logrus.WithContext(context.Background()), global.Tracer("")),
 		NewContextInjectorMiddleware(s.contextInjector),
 	}
 
